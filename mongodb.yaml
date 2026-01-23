@@ -25,7 +25,7 @@ spec:
           image: joindevops/mongodb:v1
           ports:
             - containerPort: 27017
-        # livenessProbe:
+          # livenessProbe:
           #   tcpSocket:
           #     port: 27017
           #   initialDelaySeconds: 20
@@ -35,7 +35,7 @@ spec:
           #     port: 27017
           #   initialDelaySeconds: 10
           #   periodSeconds: 10
-           resources:
+          resources:
             requests:
               cpu: "100m"
               memory: "100Mi"
