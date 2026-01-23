@@ -33,6 +33,8 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             requests:
               cpu: "100m"
