@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: roboshop
+  labels:
+    component: redis
+    tier: db
+    project: roboshop
+spec:
+  selector:
+    matchLabels:
+      component: redis
+      tier: db
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        component: redis
+        tier: db
+        project: roboshop
+    spec:
+      containers:
+        - name: redis
+          image: redis:8.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "200m"
+              memory: "200m"
