@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart-configmap
+  namespace: roboshop
+data:
+  MONGO: true
+  MONGO_URL: "mongodb://mongodb-service:27017/cart"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+  namespace: roboshop
+  labels:
+    component: cart
+    tier: backend
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: cart
+      tier: backend
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        component: cart
+        tier: backend
+        project: roboshop
+    spec:
+      containers:
+        - name: cart
+          image: joindevops/cart:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "150Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+          envFrom:
+            - configMapRef:
+                name: cart-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-service
+  namespace: roboshop
+spec:
+  selector:
+    component: cart
+    tier: backend
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
