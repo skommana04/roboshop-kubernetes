@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment-configmap
+  namespace: roboshop
+data:
+  CART_HOST: cart-service
+  CART_PORT: 8080
+  USER_HOST: user-service
+  USER_PORT: 8080
+  AMQP_HOST: rabbitmq-service
+  AMQP_USER: roboshop
+  AMQP_PASS: roboshop123
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  namespace: roboshop
+  labels:
+    component: payment
+    tier: backend
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: payment
+      tier: backend
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        component: payment
+        tier: backend
+        project: roboshop
+    spec:
+      containers:
+        - name: payment
+          image: joindevops/payment:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "150Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+          envFrom:
+            - configMapRef:
+                name: payment-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: roboshop
+spec:
+  selector:
+    component: payment
+    tier: backend
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
