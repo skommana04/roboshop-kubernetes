@@ -4,8 +4,9 @@ metadata:
   name: cart-configmap
   namespace: roboshop
 data:
-  MONGO: true
-  MONGO_URL: "mongodb://mongodb-service:27017/cart"
+  REDIS_HOST: "redis-service"
+  CATALOGUE_HOST: "catalogue-service"
+  CATALOGUE_PORT: "8080"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -38,14 +39,14 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              cpu: "150m"
-              memory: "150Mi"
-            limits:
-              cpu: "200m"
-              memory: "200Mi"
-          envFrom:
-            - configMapRef:
-                name: cart-configmap
+            cpu: "150m"
+            memory: "150Mi"
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+            envFrom:
+              - configMapRef:
+                  name: cart-configmap
 ---
 apiVersion: v1
 kind: Service
