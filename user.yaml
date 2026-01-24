@@ -31,21 +31,21 @@ spec:
         project: roboshop
     spec:
       containers:
-      - name: user
-        image: joindevops/user:v1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            cpu: "150m"
-             memory: "150Mi"
-          limits:
-            cpu: "200m"
-            memory: "200Mi"
-         envFrom:
-         - configMapRef:
-             name: user-configmap
+        - name: user
+          image: joindevops/user:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "150Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+          envFrom:
+            - configMapRef:
+                name: user-configmap
 ---
 apiVersion: v1
 kind: Service
@@ -58,6 +58,6 @@ spec:
     tier: backend
     project: roboshop
   ports:
-  - protocol: TCP
-    port: 808o
-    targetPort: 8080
+    - protocol: TCP
+      port: 808o
+      targetPort: 8080
