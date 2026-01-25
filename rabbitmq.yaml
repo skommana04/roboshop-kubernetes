@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: roboshop
+  labels:
+    component: rabbitmq
+    tier: db
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: rabbitmq
+      tier: db
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        component: rabbitmq
+        tier: db
+        project: roboshop
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5672
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service
+  namespace: roboshop
+spec:
+  selector:
+    component: rabbitmq
+    tier: db
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
