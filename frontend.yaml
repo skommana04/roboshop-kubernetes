@@ -111,7 +111,7 @@ spec:
               path: /
               port: 80
             initialDelaySeconds: 10
-            PeriodSeconds: 15
+            periodSeconds: 15
           # resources:
           #   requests:
           #     cpu: "150m"
