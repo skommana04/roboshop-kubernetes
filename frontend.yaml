@@ -4,7 +4,7 @@ metadata:
   name: frontend-configmap
   namespace: roboshop
 data:
-  nginx.cnf: |
+  nginx.conf: |
     user nginx;
     worker_processes auto;
     error_log /var/log/nginx/error.log notice;
