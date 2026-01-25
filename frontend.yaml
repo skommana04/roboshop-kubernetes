@@ -84,7 +84,7 @@ spec:
       component: frontend
       tier: frontend
       project: roboshop
-  templates:
+  template:
     metadata:
       labels:
         component: frontend
@@ -112,13 +112,13 @@ spec:
               port: 80
             initialDelaySeconds: 10
             PeriodSeconds: 15
-          resources:
-            requests:
-              cpu: "150m"
-              memory: "400Mi"
-            limits:
-              cpu: "200m"
-              memory: "500Mi"
+          # resources:
+          #   requests:
+          #     cpu: "150m"
+          #     memory: "400Mi"
+          #   limits:
+          #     cpu: "200m"
+          #     memory: "500Mi"
       volumes:
         - name: frontend-vol
           configMap:
