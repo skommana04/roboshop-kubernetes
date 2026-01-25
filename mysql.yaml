@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: roboshop
+  labels:
+    component: mysql
+    tier: db
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: mysql
+      tier: db
+      project: roboshop
+  template:
+    metadata:
+      labels:
+        component: mysql
+        tier: db
+        project: roboshop
+    spec:
+      containers:
+        - name: mysql
+          image: joindevops/mysql:v1
+          ports:
+            - containerPort: 3306
+          # resources:
+          #   requests:
+          #     cpu: "100m"
+          #     memory: "200Mi"
+          #   limits:
+          #     cpu: "150m"
+          #     memory: "250Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: roboshop
+spec:
+  selector:
+    component: mysql
+    tier: db
+    project: roboshop
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
