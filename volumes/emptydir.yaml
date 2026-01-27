@@ -10,6 +10,11 @@ spec:
       volumeMounts:
         - name: emptydir-vol
           mountPath: /usr/share/nginx/html
+    - name: almalinux
+      image: almalinux:9
+      volumeMounts:
+        - name: emptydir-vol
+          mountPath: /mnt/nginx
   volumes:
     - name: emptydir-vol
       emptyDir: {}
