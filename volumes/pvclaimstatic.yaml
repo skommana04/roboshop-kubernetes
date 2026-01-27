@@ -23,7 +23,9 @@ spec:
       image: nginx
       volumeMounts:
         - name: ebsstatic-vol
-          mountPath: /data
+          mountPath: /usr/share/nginx/html
+      nodeSelector:
+        toplogy.kuberenetes.io/zone: us-east-1b
   volumes:
     - name: ebsstatic-vol
       persistentVolumeClaim:

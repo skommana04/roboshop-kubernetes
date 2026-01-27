@@ -26,3 +26,19 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efsstatic-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - name: efs-vol
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: efs-vol
+      persistentVolumeClaim:
+        claimName: efs-pvc
