@@ -11,5 +11,5 @@ spec:
     - ReadwriteOnce
   persistentVolumeReclaimPolicy: Retain
   csi:
-    driver: ebs.csi.aws.com
+    driver: efs.csi.aws.com
     volumeHandle: fs-06bc31ff7e510a8e1
