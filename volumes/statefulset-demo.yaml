@@ -34,7 +34,7 @@ metadata:
     purpose: nginx-stateful
 spec:
   replicas: 3
-  serviceName: nginx-headless
+  serviceName: "nginx-headless"
   selector:
     matchLabels:
       purpose: nginx-stateful
